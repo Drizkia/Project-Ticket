@@ -1,44 +1,76 @@
 #include <iostream>
 #include <conio.h>
 #include <string>
+
 using namespace std;
 
-
-struct data {
+struct Data {
     string NIP;
     string pass;
 };
 
-int main () {
-    data main;
-    string NIPbenar = "1", passbenar = "1";
-    int log = 3;
+bool LogIn = false;
 
-    while (log > 0) {
-        cout << "Masukkan NIP : ";
-            getline(cin, main.NIP);
-        cout << "Masukkan Password : ";
-            getline(cin, main.pass);
+bool login(int log);
 
-            if (main.NIP == NIPbenar && main.pass == passbenar) {
-                cout << "Selamat Datang";
-                getch();
-                break;
-            } else {
-                log--;
+int main() {
+        LogIn = login(3);
 
-            } if (log > 0) {
-                cout << "Ayo coba lagi " << log << endl;
-                system ("pause");
-                system ("cls");
-            } else {
-                cout << "Bye bye";
-                break;
-                system ("pause");
-            }
+    if (LogIn) {
+        system("cls");
+        cout << "Haloo";
+    } else {
+        cout << "bye bye";
     }
 
-    system ("cls");
-    cout << "Haloo";
     return 0;
+}
+
+bool login(int log) {
+    if (log == 0) {
+        return false;
+    }
+    
+    Data main;
+
+    string NIPbenar[] = {"1", "2", "3"};
+        int jumlahNIP = sizeof(NIPbenar) / sizeof(NIPbenar[0]);
+    string passbenar[] = {"1", "2", "3"};
+        int jumlahpass = sizeof(passbenar) / sizeof(passbenar[0]);
+
+    bool NIP_valid = false;
+    bool pass_valid = false;
+
+    cout << "Masukkan NIP : ";
+        getline(cin, main.NIP);
+    cout << "Masukkan Password : ";
+        getline(cin, main.pass);
+
+        NIP_valid = false;
+        pass_valid = false;
+
+    for (int i = 0; i < jumlahNIP; i++) {
+        if (main.NIP == NIPbenar[i]) {
+            NIP_valid = true;
+            break;
+        }
+    }
+
+    for (int j = 0; j < jumlahpass; j++) {
+        if (main.pass == passbenar[j]) {
+            pass_valid = true;
+            break;
+        }
+    }
+
+    if (NIP_valid && pass_valid) {
+        cout << "Selamat Datang" << endl;
+        getch();
+        return true;
+    } else {
+            cout << "Ayo coba lagi! \n Sisa percobaan: " << log-1 << endl;
+            system("pause");
+            system("cls");
+            return login(log-1);
+        }
 }

@@ -52,7 +52,7 @@ bool login(int log) {
     for (int i = 0; i < jumlahNIP; i++) {
         if (main.NIP == NIPbenar[i]) {
             NIP_valid = true;
-            break;
+            break;`
         }
     }
 
